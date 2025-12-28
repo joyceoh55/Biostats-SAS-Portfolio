@@ -80,4 +80,8 @@ The analysis revealed that Age and CPR status were significant predictors of mor
 * **Age Impact:** For every 1-year increase in age, the odds of mortality increased by 3.3%.
 
 
+### The Visuals
+
+<img width="806" height="250" alt="image" src="https://github.com/user-attachments/assets/9e9cc061-5315-4511-acc7-8ab13b06bf91" />
+
 
