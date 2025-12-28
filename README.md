@@ -46,6 +46,7 @@ run;
 
 ## Project 2: Predictors of Mortality in ICU (Logistic Regression)
 **Role:** Biostatistician
+
 **Tools:** SAS (PROC LOGISTIC), Odds Ratios
 
 
@@ -56,6 +57,27 @@ To identify significant risk factors associated with patient mortality in the IC
 * **Statistical Modeling:** Developed a multivariable logistic regression model to predict the probability of death.
 * **Hypothesis Testing:** Conducted Wald Chi-Square tests to assess the significance of individual predictors.
 * **Interpretation:** Calculated and interpreted Odds Ratios (OR) and 95% Confidence Intervals to quantify risk.
+
+
+### Key Code Snippet
+*Statistical modeling with parameter reference specification:*
+
+```sas
+proc logistic data = fe.icu descending;
+    class fracture(param=ref ref = "No") cpr (param=ref ref = "No");
+    model death = age fracture cpr / clodds=wald;
+    format death fracture cpr yesno.;
+    title "Logistic Regression: Factors Influencing ICU Mortality";
+run;
+
+```
+
+### Results & Interpretation
+The analysis revealed that Age and CPR status were significant predictors of mortality (p < 0.05).
+
+* **CPR Impact:** Patients who received CPR had 5.98 times higher odds of mortality compared to those who did not (95% CI: 1.80, 19.89).
+
+* **Age Impact:** For every 1-year increase in age, the odds of mortality increased by 3.3%.
 
 
 
