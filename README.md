@@ -41,3 +41,21 @@ data fram_final;
     else if tchol1 > 200 and tchol2 > 200 then both_chol = 1;
     else both_chol = 0;
 run;
+
+```
+
+## Project 2: Predictors of Mortality in ICU (Logistic Regression)
+**Role:** Biostatistician
+**Tools:** SAS (PROC LOGISTIC), Odds Ratios
+
+
+### Objective
+To identify significant risk factors associated with patient mortality in the ICU, focusing on Age, Fracture status, and CPR administration.
+
+### Methodology
+* **Statistical Modeling:** Developed a multivariable logistic regression model to predict the probability of death.
+* **Hypothesis Testing:** Conducted Wald Chi-Square tests to assess the significance of individual predictors.
+* **Interpretation:** Calculated and interpreted Odds Ratios (OR) and 95% Confidence Intervals to quantify risk.
+
+
+
