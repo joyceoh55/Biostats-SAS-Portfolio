@@ -1,5 +1,17 @@
 # Biostatistics & SAS Programming Portfolio
-**Joyce Oh** *MPH in Biostatistics | SAS Base Programming Specialist*
+**Joyce Oh, MPH (Biostatistics)** | **SAS Certified Specialist: Base Programming SAS 9.4**
+
+This portfolio highlights SAS programming and biostatistical analysis projects with an emphasis on:
+- **SAS Programmer / Statistical Programmer:** data management, QC, derivations, reproducible outputs
+- **Biostatistician / Research Data Analyst:** modeling, inference, interpretation, and communication of results
+
+---
+
+## Skills Demonstrated
+- Data cleaning & derivations (longitudinal/analytic datasets)
+- PROC SQL, Data Step merges, missing data handling
+- Logistic regression (PROC LOGISTIC), ORs + 95% CI interpretation
+- Survival analysis foundations (Kaplan–Meier / Cox) *(in progress)*
 
 ---
 
