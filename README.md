@@ -1,95 +1,79 @@
 # Biostatistics & SAS Programming Portfolio
-**Joyce Oh, MPH (Biostatistics)** | **SAS Certified Specialist: Base Programming SAS 9.4**
 
-This portfolio highlights SAS programming and biostatistical analysis projects with an emphasis on:
-- **SAS Programmer / Statistical Programmer:** data management, QC, derivations, reproducible outputs
-- **Biostatistician / Research Data Analyst:** modeling, inference, interpretation, and communication of results
+**Joyce Oh, MPH (Biostatistics)**  
+**SAS Certified Specialist: Base Programming SAS 9.4**
 
----
+This repository contains SAS-based portfolio projects focused on healthcare and public health data analysis. The projects demonstrate data cleaning, variable derivation, quality checks, regression modeling, and plain-language interpretation of results.
+
+## Portfolio Focus
+
+This portfolio is designed to highlight skills relevant to:
+
+- **SAS Programmer / Statistical Programmer** roles: data management, QC, derivations, reproducible workflows
+- **Biostatistician / Research Data Analyst** roles: modeling, inference, interpretation, and communication of findings
 
 ## Skills Demonstrated
-- Data cleaning & derivations (longitudinal/analytic datasets)
-- PROC SQL, Data Step merges, missing data handling
-- Logistic regression (PROC LOGISTIC), ORs + 95% CI interpretation
-- Survival analysis foundations (Kaplan–Meier / Cox) *(in progress)*
+
+- Data cleaning and derivation of analysis-ready datasets
+- DATA step merges and longitudinal data preparation
+- Missing data handling and variable recoding
+- `PROC SQL`
+- `PROC FREQ` and `PROC MEANS` for QC and summary review
+- Logistic regression using `PROC LOGISTIC`
+- Odds ratio and 95% confidence interval interpretation
+
+## Projects
+
+### 1. Framingham Data Preparation
+**File:** `framingham_data_prep_portfolio.sas`  
+**Role:** SAS Programmer / Data Analyst  
+**Tools:** SAS Base, DATA Step, PROC SQL
+
+**Objective**  
+Prepare a derived analytic dataset from Framingham-style longitudinal cardiovascular data by merging repeated-measures records and calculating key hemodynamic indicators.
+
+**Methods**
+- Imported and organized source datasets
+- Sorted and merged longitudinal records by subject ID
+- Derived variables including age and change in systolic blood pressure
+- Created categorical indicators for blood pressure change and cholesterol status
+- Applied cleaning rules for missing or invalid values
+- Performed QC review using summary procedures
+
+**Skills shown**
+- longitudinal data management
+- merge logic
+- feature engineering
+- data cleaning
+- analytic dataset preparation
 
 ---
 
-## Project 1: Longitudinal Data Management of Framingham Heart Study
-**Role:** SAS Programmer / Data Analyst  
-**Tools:** SAS Base, Data Step, SQL
+### 2. ICU Mortality Model
+**File:** `icu_mortality_model_portfolio.sas`  
+**Role:** Biostatistics / Statistical Analysis  
+**Tools:** SAS Base, `PROC LOGISTIC`
 
-### Objective
-To prepare a derived analytical dataset from the Framingham Heart Study by merging longitudinal data (Period 1 and Period 2) and calculating critical hemodynamic indicators for cardiovascular analysis.
+**Objective**  
+Evaluate whether age, fracture status, and CPR administration are associated with ICU mortality.
 
-### Methodology
-* **Data Ingestion:** Established permanent libraries to import raw `.sas7bdat` files.
-* **Data Transformation:** Performed a one-to-one match merge on `SubjectID` to combine longitudinal datasets.
-* **Feature Engineering:** Calculated derived variables including Age, Differential Systolic Blood Pressure (`diff_sbp`), and Categorical Cholesterol status.
-* **Data Cleaning:** Implemented logic to handle missing values and exclude invalid records (missing birth dates or blood pressure readings).
+**Methods**
+- Conducted descriptive review of key variables
+- Fit a multivariable logistic regression model
+- Used Wald confidence intervals for odds ratios
+- Interpreted adjusted associations in plain language
 
-### Key Code Snippet
-*Demonstrating conditional logic and data merging:*
+**Results**
+- Age and CPR status were significant predictors of mortality
+- Patients who received CPR had substantially higher odds of mortality
+- Increasing age was associated with higher odds of mortality
 
-```sas
-data fram_final;
-    merge fram1new fram2new;
-    by subjid_new;
+**Skills shown**
+- binary outcome modeling
+- logistic regression
+- odds ratio interpretation
+- clinical outcome analysis
 
-    /* Calculate Age at Visit */
-    age = round((visit - bdate)/365.25, 1);
-
-    /* Calculate Change in Systolic BP */
-    diff_sbp = sysbp2 - sysbp1;
-
-    /* Create Categorical Change Variable */
-    if diff_sbp > 0 then diff_sbp_cat = "Higher";
-    else if diff_sbp = 0 then diff_sbp_cat = "Same";
-    else diff_sbp_cat = "Lower";
-
-    /* Flag High Cholesterol (Both Periods > 200) */
-    /* Logic: Ensure missing values are not treated as < 200 */
-    if tchol1 = . or tchol2 = . then both_chol = .;
-    else if tchol1 > 200 and tchol2 > 200 then both_chol = 1;
-    else both_chol = 0;
-run;
-
-```
-
-## Project 2: Predictors of Mortality in ICU (Logistic Regression)
-**Role:** Biostatistician
-
-**Tools:** SAS (PROC LOGISTIC), Odds Ratios
-
-
-### Objective
-To identify significant risk factors associated with patient mortality in the ICU, focusing on Age, Fracture status, and CPR administration.
-
-### Methodology
-* **Statistical Modeling:** Developed a multivariable logistic regression model to predict the probability of death.
-* **Hypothesis Testing:** Conducted Wald Chi-Square tests to assess the significance of individual predictors.
-* **Interpretation:** Calculated and interpreted Odds Ratios (OR) and 95% Confidence Intervals to quantify risk.
-
-
-### Key Code Snippet
-*Statistical modeling with parameter reference specification:*
-
-```sas
-proc logistic data = fe.icu descending;
-    class fracture(param=ref ref = "No") cpr (param=ref ref = "No");
-    model death = age fracture cpr / clodds=wald;
-    format death fracture cpr yesno.;
-    title "Logistic Regression: Factors Influencing ICU Mortality";
-run;
-
-```
-
-### Results & Interpretation
-The analysis revealed that Age and CPR status were significant predictors of mortality (p < 0.05).
-
-* **CPR Impact:** Patients who received CPR had 5.98 times higher odds of mortality compared to those who did not (95% CI: 1.80, 19.89).
-
-* **Age Impact:** For every 1-year increase in age, the odds of mortality increased by 3.3%.
 
 
 ### The Visuals
